@@ -1,0 +1,25 @@
+server:
+  port: 8080
+  tomcat:
+    connection-timeout: 60000
+
+spring:
+#  datasourceDefault: ORACLE_DB1  # only needed if you still use default anywhere
+  dbs:
+    preprod_RCA:
+      url: jdbc:oracle:thin:@10.5.179.87:1521:OPTSAPT1
+      username: cyginv
+      password: cyginv
+      driverClassName: oracle.jdbc.driver.OracleDriver
+
+    prod_RCA:
+      url: jdbc:oracle:thin:@10.5.179.99:1521:OPTSAPT2
+      username: cygnet
+      password: cygnet
+      driverClassName: oracle.jdbc.driver.OracleDriver
+
+    ORACLE_DB3:
+      url: jdbc:oracle:thin:@10.5.179.101:1521:OPTSAPT3
+      username: user3
+      password: pass3
+      driverClassName: oracle.jdbc.driver.OracleDriver
