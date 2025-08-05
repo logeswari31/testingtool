@@ -86,27 +86,30 @@ public class HierarchyDao {
         return jdbcTemplate.queryForList(finalQuery);
     }
 
-    public List<Map<String, Object>> getProblemDetailsLast10Days(String dbName) {
+    public List<Map<String, Object>> rcaPlugRelationship(String dbName) {
         JdbcTemplate jdbcTemplate = jdbcTemplateProvider.getJdbcTemplate(dbName);
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d_M_yyyy");
         StringBuilder unionQuery = new StringBuilder();
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 30; i++) {
             LocalDate date = LocalDate.now().minusDays(i);
             String tableName = "RCA_HIER_HIS_RCI_" + formatter.format(date);
 
             if (i > 0) unionQuery.append(" UNION ALL ");
 
             unionQuery.append("SELECT DISTINCT ")
-                    .append("r1.objecttype, r1.eventtypespecificuniquekey, r1.referobjtype, r1.sourceofrci, ")
-                    .append("r2.objecttype, r2.eventtypespecificuniquekey, r2.referobjtype, r2.sourceofrci, ")
-                    .append("h.srcofrelationship, h.relationshiptype ")
+                    .append("r1.objecttype as p_objType, r1.eventtypespecificuniquekey as p_etsuk, r1.mrmtid as p_mrmtid, r1.referobjtype as p_referobjType, r1.sourceofrci as p_sourceOfRci, ")
+                    .append("r2.objecttype as c_objType, r2.eventtypespecificuniquekey as c_etsuk, r2.mrmtid as c_mrmtid, r2.referobjtype as c_referobjType, r2.sourceofrci as c_sourceOfRci, ")
+                    .append("h.srcOfRelationship, h.relationshipType ")
                     .append("FROM ").append(tableName).append(" h, rca_rci r1, rca_rci r2 ")
                     .append("WHERE h.parentid = r1.id AND h.childid = r2.id ");
+
         }
 
-        String finalQuery = unionQuery.append(" ORDER BY 1,2,3,4,5,6,7,8,9,10").toString();
+        String finalQuery = unionQuery.append(" ORDER BY 1,2,3,4,5,6,7,8,9,10,11,12").toString();
+
+        System.out.println("Final Query:\n" + finalQuery);
 
         return ((JdbcTemplate) jdbcTemplate).queryForList(finalQuery);
     }

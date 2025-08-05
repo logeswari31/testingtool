@@ -13,9 +13,9 @@ spring:
       driverClassName: oracle.jdbc.driver.OracleDriver
 
     prod_RCA:
-      url: jdbc:oracle:thin:@10.5.179.99:1521:OPTSAPT2
-      username: cygnet
-      password: cygnet
+      url: jdbc:oracle:thin:@10.5.179.24:1535:OPTSA2
+      username: cyginv
+      password: welcome#123
       driverClassName: oracle.jdbc.driver.OracleDriver
 
     ORACLE_DB3:

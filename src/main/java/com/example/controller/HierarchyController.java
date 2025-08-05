@@ -24,9 +24,9 @@ public class HierarchyController {
         return service.getAllParentIds(objectName, dbName);
     }
 
-    @GetMapping("/problem-details")
-    public ResponseEntity<List<Map<String, Object>>> getProblemDetails(@RequestParam String dbName) {
-        List<Map<String, Object>> result = hierarchyDao.getProblemDetailsLast10Days(dbName);
+    @GetMapping("/plugRelation")
+    public ResponseEntity<List<Map<String, Object>>> getPlugRelationship(@RequestParam String dbName) {
+        List<Map<String, Object>> result = hierarchyDao.rcaPlugRelationship(dbName);
         return ResponseEntity.ok(result);
     }
 }
